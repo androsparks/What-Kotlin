@@ -48,7 +48,7 @@ ext {
 
             gson             : '2.8.6',
 
-            mmkv             : '1.0.19',
+            mmkv             : '1.2.7',
 
             leakcanary       : '2.6',
 
@@ -72,10 +72,10 @@ ext {
             kotlin_stdlib           : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: versions.kotlin_gradle],
             // 协程    https://github.com/Kotlin/kotlinx.coroutines
             kotlin_coroutines       : [group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-android', version: versions.kotlin_coroutines],
-            kotlin_coroutines_core  : [group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: versions.kotlin_coroutines],
 
             appcompat               : [group: 'androidx.appcompat', name: 'appcompat', version: versions.appcompat],
             core                    : [group: 'androidx.core', name: 'core', version: versions.core],
+            core_ktx                : [group: 'androidx.core', name: 'core-ktx', version: versions.core],
             fragment                : [group: 'androidx.fragment', name: 'fragment', version: versions.fragment],
             recyclerview            : [group: 'androidx.recyclerview', name: 'recyclerview', version: versions.recyclerview],
             cardview                : [group: 'androidx.cardview', name: 'cardview', version: versions.cardview],
@@ -142,8 +142,8 @@ ext {
 
             junit                   : [group: 'junit', name: 'junit', version: '4.12'],
 
-            test_runner             : [group: 'com.android.support.test', name: 'runner', version: '1.0.2'],
-            test_espresso           : [group: 'com.android.support.test.espresso', name: 'espresso-core', version: '3.0.2'],
+            test_runner             : [group: 'androidx.test', name: 'runner', version: '1.1.2'],
+            test_espresso           : [group: 'androidx.test.espresso', name: 'espresso-core', version: '3.3.0'],
 
             multidex                : [group: 'androidx.multidex', name: 'multidex', version: versions.multidex],
 
@@ -167,14 +167,14 @@ ext {
             shimmerlayout           : [group: 'io.supercharge', name: 'shimmerlayout', version: '2.1.0'],
 
             //https://github.com/JeremyLiao/LiveEventBus
-            live_event_bus          : [group: 'com.jeremyliao', name: 'live-event-bus-x', version: '1.7.2'],
+            live_event_bus          : [group: 'com.jeremyliao', name: 'live-event-bus-x', version: '1.7.3'],
 
             //https://github.com/anzewei/ParallaxBackLayout
             parallaxbacklayout      : [group: 'com.github.anzewei', name: 'parallaxbacklayout', version: '1.1.9'],
 
             //https://github.com/luckybilly/SmartSwipe
-            swipe                   : [group: 'com.billy.android', name: 'smart-swipe', version: '1.0.8'],
-            swipe_support           : [group: 'com.billy.android', name: 'smart-swipe-support', version: '1.0.0'],
+            swipe                   : [group: 'com.billy.android', name: 'smart-swipe', version: '1.1.2'],
+            swipe_support           : [group: 'com.billy.android', name: 'smart-swipe-x', version: '1.1.0'],
 
             material                : [group: 'com.google.android.material', name: 'material', version: versions.material],
 

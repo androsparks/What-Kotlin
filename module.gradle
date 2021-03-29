@@ -123,7 +123,7 @@ android {
         multiDexEnabled true
         // 使用矢量图
         vectorDrawables.useSupportLibrary = true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         // 将混淆文件解耦到每个模块中，并且不会影响编译效率
         consumerProguardFiles 'consumer-rules.pro'
     }
@@ -230,9 +230,6 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     if (runAsApp) {
-        androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
-            exclude group: 'com.android.support', module: 'support-annotations'
-        })
         testImplementation libs.junit
         androidTestImplementation libs.test_runner
         androidTestImplementation libs.test_espresso

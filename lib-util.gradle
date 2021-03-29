@@ -103,7 +103,7 @@ dependencies {
     // 避免65K限制       https://developer.android.com/tools/building/multidex.html
     api libs.multidex
     // kotlin
-    api libs.kotlin_stdlib, libs.kotlin_coroutines, libs.kotlin_coroutines_core
+    api libs.kotlin_stdlib, libs.kotlin_coroutines, libs.core_ktx
 }
 
 
