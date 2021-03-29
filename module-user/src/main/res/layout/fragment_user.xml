@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:skin="http://schemas.android.com/android/skin"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ResourceName">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.yyxnb.common_res.bean.UserVo" />
+
+        <!--        <variable-->
+        <!--            name="lifeCycleOwner"-->
+        <!--            type="android.arch.lifecycle.LifecycleOwner" />-->
+
+        <import type="android.text.TextUtils" />
+
+        <import type="com.yyxnb.module_user.ui.UserPresenter" />
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rlContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        skin:enable="true"
+        tools:context=".ui.UserFragment">
+
+        <ImageView
+            android:id="@+id/ivHeadBg"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:background="@color/colorUserHead"
+            skin:enable="true" />
+
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srlEnablePureScrollMode="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/clHead"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout                        android:layout_width="match_parent"
+                        android:layout_height="150dp">
+
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/ivAvatar"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginEnd="24dp"
+                            android:layout_marginBottom="16dp"
+                            android:src="@mipmap/ic_logo"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:riv_border_color="@color/white"
+                            app:riv_border_width="1dp"
+                            app:riv_corner_radius="6dp" />
+
+                        <TextView
+                            android:id="@+id/tvName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="4dp"
+                            android:text="@{!TextUtils.isEmpty(data.nickName) ? data.nickName : @string/not_logged_in }"
+                            android:textColor="@color/white"
+                            android:textSize="17sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/ivAvatar"
+                            tools:text="@string/not_logged_in" />
+
+                        <TextView
+                            android:id="@+id/tvSign"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="16dp"
+                            android:maxLines="2"
+                            android:text="@{!TextUtils.isEmpty(data.signature) ? data.signature : @string/no_signature }"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toStartOf="@+id/ivAvatar"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvName"
+                            tools:text="@string/no_signature" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!--中间数量-->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.15"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="获赞"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.38"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="关注"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.62"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="粉丝"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.85"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/ivWallet"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@mipmap/ic_user_wallet"
+                                app:tint="@color/colorPrimary" />
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <!--目录-->
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <View
+                            android:id="@+id/v_menuBg"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/colorBackground"
+                            skin:enable="true" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/clMenuBg"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:layout_margin="20dp"
+                            android:background="@drawable/shape_r8_bg_ffffff"
+                            skin:enable="true">
+
+                            <com.yyxnb.what.view.text.TextImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableTop="@color/colorLine"
+                                android:drawablePadding="2dp"
+                                android:gravity="center"
+                                android:text="作品"
+                                android:textColor="@color/colorText"
+                                app:drawableTopHeight="25dp"
+                                app:drawableTopWidth="25dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.2"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                skin:enable="true" />
+
+                            <com.yyxnb.what.view.text.TextImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableTop="@color/colorLine"
+                                android:drawablePadding="2dp"
+                                android:gravity="center"
+                                android:text="动态"
+                                android:textColor="@color/colorText"
+                                app:drawableTopHeight="25dp"
+                                app:drawableTopWidth="25dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                skin:enable="true" />
+
+                            <com.yyxnb.what.view.text.TextImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableTop="@color/colorLine"
+                                android:drawablePadding="2dp"
+                                android:gravity="center"
+                                android:text="喜欢"
+                                android:textColor="@color/colorText"
+                                app:drawableTopHeight="25dp"
+                                app:drawableTopWidth="25dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.8"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                skin:enable="true" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/bottomMenuBg"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorBackground"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/clHead"
+                    skin:enable="true" />
+
+                <LinearLayout
+                    android:id="@+id/centreMenuBg"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/shape_r8_bg_ffffff"
+                    android:orientation="vertical"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/clHead"
+                    skin:enable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <com.yyxnb.what.view.text.DrawableRadioButton
+                            android:id="@+id/rbNightMode"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorPrimary"
+                            android:button="@null"
+                            android:drawablePadding="12dp"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="10dp"
+                            android:text="@string/night_mode"
+                            android:textColor="@color/colorText"
+                            app:left_drawable="@color/colorLine"
+                            app:left_drawableSize="27dp"
+                            skin:enable="true" />
+
+                        <CheckBox
+                            android:id="@+id/cbMode"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="10dp"
+                            android:checked="@{UserPresenter.isChecked()}"
+                            android:onCheckedChanged="@{(v,isChecked) -> UserPresenter.onCheckedChange(v,isChecked)}" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/v_line1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/colorLine"
+                        skin:enable="true" />
+
+                    <com.yyxnb.what.view.text.DrawableRadioButton
+                        android:id="@+id/rb_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/colorPrimary"
+                        android:button="@null"
+                        android:drawablePadding="12dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/feed_back"
+                        android:textColor="@color/colorText"
+                        app:left_drawable="@color/colorLine"
+                        app:left_drawableSize="27dp"
+                        app:right_drawable="@color/colorLine"
+                        app:right_drawableSize="15dp"
+                        skin:enable="true" />
+
+                    <View
+                        android:id="@+id/v_line2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/colorLine"
+                        skin:enable="true" />
+
+                    <com.yyxnb.what.view.text.DrawableRadioButton
+                        android:id="@+id/rbSetUp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/colorPrimary"
+                        android:button="@null"
+                        android:drawablePadding="12dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/set_up"
+                        android:textColor="@color/colorText"
+                        app:left_drawable="@color/colorLine"
+                        app:left_drawableSize="27dp"
+                        app:right_drawable="@color/colorLine"
+                        app:right_drawableSize="15dp"
+                        skin:enable="true" />
+
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+
+    </RelativeLayout>
+</layout>

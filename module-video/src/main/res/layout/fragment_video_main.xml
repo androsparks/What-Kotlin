@@ -1,0 +1,15 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <com.yyxnb.common_res.weight.NoScrollViewPager
+        android:id="@+id/vpContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.yyxnb.module_video.ui.main.VideoMainFragment">
+
+    </com.yyxnb.common_res.weight.NoScrollViewPager>
+</layout>

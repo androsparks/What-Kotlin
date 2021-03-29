@@ -1,0 +1,58 @@
+[
+  {
+    "type": 1,
+    "title": "常用工具",
+    "des": "",
+    "url": "",
+    "key": ""
+  },
+  {
+    "type": 0,
+    "title": "Toast",
+    "des": "",
+    "url": "",
+    "key": "toast"
+  },
+  {
+    "type": 0,
+    "title": "换肤",
+    "des": "",
+    "url": "",
+    "key": "skin"
+  },
+  {
+    "type": 1,
+    "title": "自定义",
+    "des": "",
+    "url": "",
+    "key": ""
+  },
+  {
+    "type": 0,
+    "title": "自定义Title",
+    "des": "",
+    "url": "",
+    "key": "title"
+  },
+  {
+    "type": 0,
+    "title": "Dialog",
+    "des": "",
+    "url": "",
+    "key": "dialog"
+  },
+  {
+    "type": 0,
+    "title": "Tag标签",
+    "des": "",
+    "url": "",
+    "key": "tag"
+  },
+  {
+    "type": 0,
+    "title": "Popup",
+    "des": "",
+    "url": "",
+    "key": "popup"
+  }
+]

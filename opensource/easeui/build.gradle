@@ -1,0 +1,18 @@
+apply from: rootProject.file('simple.gradle')
+
+dependencies {
+    //release时需要把hyphenatechatsdk的依赖注释掉，sdk已经被打成jar包放在libs底下
+    ////api project(':hyphenatechatsdk')
+    //api 'com.hyphenate:hyphenate-sdk:3.7.1'
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api libs.glide
+
+    //
+    api 'com.google.android.gms:play-services-base:11.4.0'
+    api 'com.google.firebase:firebase-messaging:11.4.0'
+    // 环信sdk http://docs-im.easemob.com/im/android/sdk/releasenote
+    api 'com.hyphenate:hyphenate-sdk:3.7.2'
+
+    api libs.appcompat
+    testImplementation 'junit:junit:4.12'
+}
