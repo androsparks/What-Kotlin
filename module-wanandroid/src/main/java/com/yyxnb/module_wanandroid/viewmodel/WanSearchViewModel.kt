@@ -1,49 +1,34 @@
-package com.yyxnb.module_wanandroid.viewmodel;
+package com.yyxnb.module_wanandroid.viewmodel
 
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData
+import com.yyxnb.common_base.base.CommonViewModel
+import com.yyxnb.common_res.config.Http
+import com.yyxnb.module_wanandroid.bean.WanAriticleBean
+import com.yyxnb.module_wanandroid.bean.WanClassifyBean
+import com.yyxnb.module_wanandroid.bean.WanStatus
+import com.yyxnb.module_wanandroid.config.WanService
 
-import com.yyxnb.common_base.base.CommonViewModel;
-import com.yyxnb.common_res.bean.WanData;
-import com.yyxnb.common_res.config.Http;
-import com.yyxnb.module_wanandroid.bean.WanAriticleBean;
-import com.yyxnb.module_wanandroid.bean.WanClassifyBean;
-import com.yyxnb.module_wanandroid.bean.WanStatus;
-import com.yyxnb.module_wanandroid.config.WanService;
+class WanSearchViewModel : CommonViewModel() {
 
-import java.util.List;
+    private val mApi: WanService = Http.create(WanService::class.java)
 
-public class WanSearchViewModel extends CommonViewModel {
+    @JvmField
+    var searchData = MutableLiveData<List<WanClassifyBean>>()
 
-    private final WanService mApi = Http.getInstance().create(WanService.class);
+    @JvmField
+    var searchDataByKey = MutableLiveData<WanStatus<WanAriticleBean>>()
 
-    public MutableLiveData<List<WanClassifyBean>> searchData = new MutableLiveData<>();
-    public MutableLiveData<WanStatus<WanAriticleBean>> searchDataByKey = new MutableLiveData<>();
-
-    public void getSearchData() {
-
-        launchOnlyResult(mApi.getSearchData(), new HttpResponseCallback<WanData<List<WanClassifyBean>>>() {
-            @Override
-            public void onSuccess(WanData<List<WanClassifyBean>> data) {
-                searchData.postValue(data.getResult());
-            }
-
-            @Override
-            public void onError(String msg) {
-            }
-        });
+    fun getSearchData() {
+        launchOnlyResult(
+                block = { mApi.getSearchData() },
+                success = { searchData.postValue(it) }
+        )
     }
 
-    public void getSearchDataByKey(int page, String key) {
-        launchOnlyResult(mApi.getSearchDataByKey(page, key), new HttpResponseCallback<WanData<WanStatus<WanAriticleBean>>>() {
-            @Override
-            public void onSuccess(WanData<WanStatus<WanAriticleBean>> data) {
-                searchDataByKey.postValue(data.getResult());
-            }
-
-            @Override
-            public void onError(String msg) {
-            }
-        });
+    fun getSearchDataByKey(page: Int, key: String) {
+        launchOnlyResult(
+                block = { mApi.getSearchDataByKey(page, key) },
+                success = { searchDataByKey.postValue(it) }
+        )
     }
-
 }

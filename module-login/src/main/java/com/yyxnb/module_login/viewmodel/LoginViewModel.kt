@@ -3,8 +3,6 @@ package com.yyxnb.module_login.viewmodel
 import cn.hutool.core.util.PhoneUtil
 import com.yyxnb.common_base.base.CommonViewModel
 import com.yyxnb.common_base.event.TypeEvent
-import com.yyxnb.common_res.bean.BaseData
-import com.yyxnb.common_res.bean.UserVo
 import com.yyxnb.common_res.config.Http
 import com.yyxnb.common_res.db.AppDatabase
 import com.yyxnb.common_res.utils.UserLiveData
@@ -24,7 +22,7 @@ import com.yyxnb.what.core.log.LogUtils
  */
 class LoginViewModel : CommonViewModel() {
 
-    private val mApi = Http.getInstance().create(LoginApi::class.java)
+    private val mApi = Http.create(LoginApi::class.java)
     private val userDao = AppDatabase.getInstance().userDao()
 
     @JvmField

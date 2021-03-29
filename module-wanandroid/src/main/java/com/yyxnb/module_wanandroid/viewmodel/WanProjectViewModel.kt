@@ -1,64 +1,44 @@
-package com.yyxnb.module_wanandroid.viewmodel;
+package com.yyxnb.module_wanandroid.viewmodel
 
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData
+import com.yyxnb.common_base.base.CommonViewModel
+import com.yyxnb.common_res.config.Http
+import com.yyxnb.module_wanandroid.bean.WanAriticleBean
+import com.yyxnb.module_wanandroid.bean.WanClassifyBean
+import com.yyxnb.module_wanandroid.bean.WanStatus
+import com.yyxnb.module_wanandroid.config.WanService
 
-import com.yyxnb.common_base.base.CommonViewModel;
-import com.yyxnb.common_res.bean.WanData;
-import com.yyxnb.common_res.config.Http;
-import com.yyxnb.module_wanandroid.bean.WanAriticleBean;
-import com.yyxnb.module_wanandroid.bean.WanClassifyBean;
-import com.yyxnb.module_wanandroid.bean.WanStatus;
-import com.yyxnb.module_wanandroid.config.WanService;
+class WanProjectViewModel : CommonViewModel() {
 
-import java.util.List;
+    private val mApi: WanService = Http.create(WanService::class.java)
 
-public class WanProjectViewModel extends CommonViewModel {
+    @JvmField
+    var projecTypes = MutableLiveData<List<WanClassifyBean>>()
 
-    private final WanService mApi = Http.getInstance().create(WanService.class);
+    @JvmField
+    var projecDataByType = MutableLiveData<WanStatus<WanAriticleBean>>()
 
-    public MutableLiveData<List<WanClassifyBean>> projecTypes = new MutableLiveData<>();
-    public MutableLiveData<WanStatus<WanAriticleBean>> projecDataByType = new MutableLiveData<>();
-    public MutableLiveData<List<WanAriticleBean>> projecNewData = new MutableLiveData<>();
+    @JvmField
+    var projecNewData = MutableLiveData<List<WanAriticleBean>>()
 
-    public void getProjecTypes() {
-
-        launchOnlyResult(mApi.getProjecTypes(), new HttpResponseCallback<WanData<List<WanClassifyBean>>>() {
-            @Override
-            public void onSuccess(WanData<List<WanClassifyBean>> data) {
-                projecTypes.postValue(data.getResult());
-            }
-
-            @Override
-            public void onError(String msg) {
-            }
-        });
+    fun getProjecTypes() {
+        launchOnlyResult(
+                block = { mApi.getProjecTypes() },
+                success = { projecTypes.postValue(it) }
+        )
     }
 
-    public void getProjecDataByType(int page, int cid) {
-
-        launchOnlyResult(mApi.getProjecDataByType(page, cid), new HttpResponseCallback<WanData<WanStatus<WanAriticleBean>>>() {
-            @Override
-            public void onSuccess(WanData<WanStatus<WanAriticleBean>> data) {
-                projecDataByType.postValue(data.getResult());
-            }
-
-            @Override
-            public void onError(String msg) {
-            }
-        });
+    fun getProjecDataByType(page: Int, cid: Int) {
+        launchOnlyResult(
+                block = { mApi.getProjecDataByType(page, cid) },
+                success = { projecDataByType.postValue(it) }
+        )
     }
 
-    public void getProjecNewData(int page) {
-
-        launchOnlyResult(mApi.getProjecNewData(page), new HttpResponseCallback<WanData<List<WanAriticleBean>>>() {
-            @Override
-            public void onSuccess(WanData<List<WanAriticleBean>> data) {
-                projecNewData.postValue(data.getResult());
-            }
-
-            @Override
-            public void onError(String msg) {
-            }
-        });
+    fun getProjecNewData(page: Int) {
+        launchOnlyResult(
+                block = { mApi.getProjecNewData(page) },
+                success = { projecNewData.postValue(it) }
+        )
     }
 }

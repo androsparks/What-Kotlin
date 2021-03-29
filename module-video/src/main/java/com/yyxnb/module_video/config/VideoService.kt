@@ -1,5 +1,5 @@
-package com.yyxnb.module_video.config;
+package com.yyxnb.module_video.config
 
-public interface VideoService {
+interface VideoService {
 
 }

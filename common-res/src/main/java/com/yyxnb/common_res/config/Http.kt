@@ -1,55 +1,23 @@
-package com.yyxnb.common_res.config;
+package com.yyxnb.common_res.config
 
-import com.yyxnb.common_res.utils.UrlInterceptor;
-import com.yyxnb.what.network.AbsRetrofit;
+import cn.hutool.core.collection.ListUtil
+import com.yyxnb.common_res.utils.UrlInterceptor
+import com.yyxnb.what.network.AbsRetrofit
+import okhttp3.Interceptor
 
-import org.jetbrains.annotations.NotNull;
+object Http : AbsRetrofit() {
 
-import java.util.List;
-
-import cn.hutool.core.collection.ListUtil;
-import okhttp3.Interceptor;
-
-import static com.yyxnb.common_res.config.BaseAPI.URL_APIOPEN;
-import static com.yyxnb.common_res.config.BaseAPI.URL_JISU;
-import static com.yyxnb.common_res.config.BaseAPI.URL_LOCAL;
-import static com.yyxnb.common_res.config.BaseAPI.URL_MOCKY;
-import static com.yyxnb.common_res.config.BaseAPI.URL_WAN_ANDROID;
-
-
-public class Http extends AbsRetrofit {
-
-    private static volatile Http mInstance = null;
-
-    private Http() {
+    override fun baseUrl(): String {
+        return BaseAPI.URL_LOCAL
     }
 
-    public static Http getInstance() {
-        if (null == mInstance) {
-            synchronized (Http.class) {
-                if (null == mInstance) {
-                    mInstance = new Http();
-                }
-            }
-        }
-        return mInstance;
+    override fun interceptors(): Iterable<Interceptor> {
+        val urlBucket = ListUtil.list(false,
+                BaseAPI.URL_MOCKY, BaseAPI.URL_WAN_ANDROID, BaseAPI.URL_APIOPEN, BaseAPI.URL_JISU
+        )
+        return ListUtil.list<Interceptor>(false,
+                UrlInterceptor(urlBucket)
+        )
     }
 
-    @NotNull
-    @Override
-    public String baseUrl() {
-        return URL_LOCAL;
-    }
-
-    @NotNull
-    @Override
-    public Iterable<Interceptor> interceptors() {
-
-        final List<String> urlBucket = ListUtil.list(false,
-                URL_MOCKY, URL_WAN_ANDROID, URL_APIOPEN, URL_JISU
-        );
-        return ListUtil.list(false,
-                new UrlInterceptor(urlBucket)
-        );
-    }
 }

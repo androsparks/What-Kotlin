@@ -1,35 +1,29 @@
-package com.yyxnb.module_novel.config;
+package com.yyxnb.module_novel.config
 
-import androidx.lifecycle.LiveData;
+import com.yyxnb.common_res.bean.JiSuData
+import com.yyxnb.common_res.config.BaseAPI
+import com.yyxnb.module_novel.bean.BookChapterBean
+import com.yyxnb.module_novel.bean.BookDetailBean
+import retrofit2.http.GET
+import retrofit2.http.Headers
+import retrofit2.http.Path
+import retrofit2.http.Query
 
-import com.yyxnb.common_res.bean.JiSuData;
-import com.yyxnb.module_novel.bean.BookChapterBean;
-import com.yyxnb.module_novel.bean.BookDetailBean;
+interface NovelService {
 
-import java.util.List;
-
-import retrofit2.http.GET;
-import retrofit2.http.Headers;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
-
-import static com.yyxnb.common_res.config.BaseAPI.HEADER_JISU;
-
-public interface NovelService {
-
-    @Headers(HEADER_JISU)
+    @Headers(BaseAPI.HEADER_JISU)
     @GET("{cst}/chapter")
-    LiveData<JiSuData<List<BookChapterBean>>> getChapterList(
-            @Path("cst") String cst,
-            @Query("appkey") String appkey
-    );
+    suspend fun getChapterList(
+            @Path("cst") cst: String,
+            @Query("appkey") appkey: String
+    ): JiSuData<List<BookChapterBean>>
 
-    @Headers(HEADER_JISU)
+    @Headers(BaseAPI.HEADER_JISU)
     @GET("{cst}/detail")
-    LiveData<JiSuData<BookDetailBean>> getChapterDetail(
-            @Path("cst") String cst,
-            @Query("appkey") String appkey,
-            @Query("detailid") String detailid,
-            @Query("isdetailed") String isdetailed
-    );
+    suspend fun getChapterDetail(
+            @Path("cst") cst: String,
+            @Query("appkey") appkey: String,
+            @Query("detailid") detailid: String,
+            @Query("isdetailed") isdetailed: String
+    ): JiSuData<BookDetailBean>
 }

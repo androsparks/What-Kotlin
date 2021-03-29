@@ -869,6 +869,7 @@ public class NovelReadActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public void onBackPressed() {
         if (mDrawerLayout != null) {
