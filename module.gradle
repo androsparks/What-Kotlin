@@ -231,7 +231,7 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     if (runAsApp) {
         testImplementation libs.junit
-        androidTestImplementation libs.test_runner
+        androidTestImplementation libs.test_junit
         androidTestImplementation libs.test_espresso
     }
 
