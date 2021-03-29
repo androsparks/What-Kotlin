@@ -70,12 +70,12 @@ public class OkHttpUtils extends AbsOkHttp {
     }
 
     @Override
-    protected String baseUrl() {
+    public String baseUrl() {
         return "";
     }
 
     @Override
-    protected Map<String, String> header() {
+    public Map<String, String> header() {
         return headers;
     }
 
@@ -111,7 +111,7 @@ public class OkHttpUtils extends AbsOkHttp {
     }
 
     @Override
-    protected CookieJar cookieJar() {
+    public CookieJar cookieJar() {
         return new CookieJar() {
             @Override
             public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {

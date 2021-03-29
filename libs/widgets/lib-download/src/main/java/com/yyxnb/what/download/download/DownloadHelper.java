@@ -28,7 +28,7 @@ public class DownloadHelper extends AbsOkHttp {
     }
 
     @Override
-    protected String baseUrl() {
+    public String baseUrl() {
         return "";
     }
 

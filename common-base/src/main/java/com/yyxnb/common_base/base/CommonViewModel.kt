@@ -1,14 +1,15 @@
-package com.yyxnb.common_base.base;
+package com.yyxnb.common_base.base
 
-import androidx.lifecycle.LiveData;
-
-import com.yyxnb.common_base.event.MessageEvent;
-import com.yyxnb.common_base.event.StatusEvent;
-import com.yyxnb.common_base.event.TypeEvent;
-import com.yyxnb.what.arch.viewmodel.BaseViewModel;
-import com.yyxnb.what.core.interfaces.IData;
-
-import cn.hutool.core.util.ObjectUtil;
+import android.accounts.NetworkErrorException
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
+import cn.hutool.core.util.ObjectUtil
+import com.yyxnb.common_base.event.MessageEvent
+import com.yyxnb.common_base.event.StatusEvent
+import com.yyxnb.common_base.event.TypeEvent
+import com.yyxnb.what.arch.viewmodel.BaseViewModel
+import com.yyxnb.what.core.interfaces.IData
+import kotlinx.coroutines.*
 
 /**
  * ================================================
@@ -17,70 +18,110 @@ import cn.hutool.core.util.ObjectUtil;
  * 描    述：自定义网络请求
  * ================================================
  */
-public class CommonViewModel extends BaseViewModel {
+open class CommonViewModel : BaseViewModel() {
 
     /**
      * 普通消息事件
      */
-    private final MessageEvent mMessageEvent = new MessageEvent();
+    val messageEvent = MessageEvent()
+
     /**
      * 网络请求状态事件
      */
-    private final StatusEvent mStatusEvent = new StatusEvent();
+    val statusEvent = StatusEvent()
 
     /**
      * 自定义状态事件
      */
-    private final TypeEvent mTypeEvent = new TypeEvent();
+    val typeEvent = TypeEvent()
 
-    @Override
-    protected void onCreate() {
+    override fun onCreate() {}
+
+    override fun onCleared() {
+        super.onCleared()
     }
 
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-    }
-
-    public <T extends IData> void launchOnlyResult(
-            LiveData<T> call,
-            HttpResponseCallback<T> callback
+    fun <T> launchOnlyResult(
+            block: suspend CoroutineScope.() -> IData<T>,
+            //成功
+            success: (T) -> Unit = {},
+            //错误 根据错误进行不同分类
+            error: (Throwable) -> Unit = {
+                //UnknownHostException 1：服务器地址错误；2：网络未连接
+//                reTry()
+            },
+            //完成
+            complete: () -> Unit = {}
     ) {
-        mStatusEvent.setValue(StatusEvent.HttpStatus.LOADING);
-        call.observe(this, t -> {
-            if (ObjectUtil.isNotNull(t)) {
-                if (t.isSuccess()) {
-                    mStatusEvent.postValue(StatusEvent.HttpStatus.SUCCESS);
-                    callback.onSuccess(t);
-                } else {
-                    mStatusEvent.postValue(StatusEvent.HttpStatus.FAILURE);
-                    callback.onError(t.getMsg());
-                }
+        statusEvent.value = StatusEvent.HttpStatus.LOADING
+        //正式请求接口
+        viewModelScope.launch {
+            //异常处理
+            handleException(
+                    //调用接口
+                    { withContext(Dispatchers.IO) { block() } },
+                    { res ->
+                        //接口成功返回
+                        executeResponse(res) {
+                            success(it)
+                        }
+                    },
+                    {
+                        statusEvent.postValue(StatusEvent.HttpStatus.ERROR)
+                        //接口失败返回
+                        error(it)
+                    },
+                    {
+                        statusEvent.postValue(StatusEvent.HttpStatus.COMPLETE)
+                        //接口完成
+                        complete()
+                    }
+            )
+        }
+    }
+
+    /**
+     * 请求结果过滤
+     */
+    private suspend fun <T> executeResponse(
+            response: IData<T>,
+            success: suspend CoroutineScope.(T) -> Unit
+    ) {
+        coroutineScope {
+            //接口成功返回后判断是否是增删改查成功，不满足的话，返回异常
+            if (response.isSuccess) {
+                statusEvent.postValue(StatusEvent.HttpStatus.SUCCESS)
+                success(response.result)
             } else {
-                mStatusEvent.postValue(StatusEvent.HttpStatus.ERROR);
-                callback.onError("500");
+                statusEvent.postValue(StatusEvent.HttpStatus.ERROR)
+                throw NetworkErrorException(response.msg)
             }
-        });
+        }
     }
 
-    public MessageEvent getMessageEvent() {
-        return mMessageEvent;
+    /**
+     * 异常统一处理
+     */
+    private suspend fun <T> handleException(
+            block: suspend CoroutineScope.() -> IData<T>,
+            success: suspend CoroutineScope.(IData<T>) -> Unit,
+            error: suspend CoroutineScope.(Throwable) -> Unit,
+            complete: suspend CoroutineScope.() -> Unit
+    ) {
+        coroutineScope {
+            try {
+                success(block())
+            } catch (e: Throwable) {
+                error(e)
+                e.printStackTrace()
+            } finally {
+                complete()
+            }
+        }
     }
 
-    public StatusEvent getStatusEvent() {
-        return mStatusEvent;
+    interface HttpResponseCallback<T> {
+        fun onSuccess(data: T)
+        fun onError(msg: String?)
     }
-
-    public TypeEvent getTypeEvent() {
-        return mTypeEvent;
-    }
-
-    public interface HttpResponseCallback<T> {
-
-        void onSuccess(T data);
-
-        void onError(String msg);
-
-    }
-
 }

@@ -1,17 +1,14 @@
-package com.yyxnb.module_login.config;
+package com.yyxnb.module_login.config
 
-import androidx.lifecycle.LiveData;
+import androidx.lifecycle.LiveData
+import com.yyxnb.common_res.bean.BaseData
+import com.yyxnb.common_res.bean.UserVo
+import com.yyxnb.module_login.bean.request.LoginDto
+import retrofit2.http.Body
+import retrofit2.http.POST
+import retrofit2.http.Query
 
-import com.yyxnb.common_res.bean.BaseData;
-import com.yyxnb.common_res.bean.UserVo;
-import com.yyxnb.module_login.bean.request.LoginDto;
-
-import retrofit2.http.Body;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
-
-public interface LoginApi {
-
+interface LoginApi {
     /**
      * 获取验证码
      *
@@ -19,7 +16,7 @@ public interface LoginApi {
      * @return
      */
     @POST("login/verificationCode")
-    LiveData<BaseData<String>> verificationCode(@Query("phone") String phone);
+    suspend fun verificationCode(@Query("phone") phone: String): BaseData<String>
 
     /**
      * 手机号登录
@@ -28,7 +25,7 @@ public interface LoginApi {
      * @return
      */
     @POST("login/phoneLogin")
-    LiveData<BaseData<UserVo>> phoneLogin(@Body LoginDto dto);
+    suspend fun phoneLogin(@Body dto: LoginDto): BaseData<UserVo>
 
     /**
      * 游客登录
@@ -36,5 +33,5 @@ public interface LoginApi {
      * @return
      */
     @POST("login/visitorLogin")
-    LiveData<BaseData<UserVo>> visitorLogin();
+    suspend fun visitorLogin(): BaseData<UserVo>
 }

@@ -30,6 +30,7 @@ public class StatusEvent extends SingleLiveEvent<StatusEvent.HttpStatus> {
         LOADING,
         SUCCESS,
         FAILURE,
-        ERROR
+        ERROR,
+        COMPLETE
     }
 }

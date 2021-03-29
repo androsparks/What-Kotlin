@@ -3,7 +3,7 @@ apply from: rootProject.file('lib-util.gradle')
 
 dependencies {
     // jetpack
-    api libs.lifecycle_java8, libs.lifecycle
+    api libs.lifecycle_java8, libs.lifecycle, libs.lifecycle_viewmodel
     implementation libs.lib_app
     api libs.hutool_core
 }

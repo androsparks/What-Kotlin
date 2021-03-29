@@ -30,7 +30,7 @@ public class UploadHelper extends AbsOkHttp {
     }
 
     @Override
-    protected String baseUrl() {
+    public String baseUrl() {
         return null;
     }
 

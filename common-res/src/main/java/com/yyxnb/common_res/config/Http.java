@@ -3,6 +3,8 @@ package com.yyxnb.common_res.config;
 import com.yyxnb.common_res.utils.UrlInterceptor;
 import com.yyxnb.what.network.AbsRetrofit;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import cn.hutool.core.collection.ListUtil;
@@ -33,13 +35,15 @@ public class Http extends AbsRetrofit {
         return mInstance;
     }
 
+    @NotNull
     @Override
-    protected String baseUrl() {
+    public String baseUrl() {
         return URL_LOCAL;
     }
 
+    @NotNull
     @Override
-    protected Iterable<Interceptor> interceptors() {
+    public Iterable<Interceptor> interceptors() {
 
         final List<String> urlBucket = ListUtil.list(false,
                 URL_MOCKY, URL_WAN_ANDROID, URL_APIOPEN, URL_JISU
