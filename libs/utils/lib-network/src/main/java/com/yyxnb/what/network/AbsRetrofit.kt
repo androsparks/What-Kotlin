@@ -2,12 +2,10 @@ package com.yyxnb.what.network
 
 import com.yyxnb.what.okhttp.AbsOkHttp
 import com.yyxnb.what.okhttp.utils.GsonUtils
-import okhttp3.OkHttpClient
 import retrofit2.CallAdapter
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
 
 /**
  * ================================================
