@@ -17,6 +17,7 @@ import java.util.*
  * ================================================
  */
 abstract class AbsRetrofit : AbsOkHttp() {
+
     /**
      * CallAdapter转换器
      */
@@ -41,7 +42,6 @@ abstract class AbsRetrofit : AbsOkHttp() {
             builder.addConverterFactory(it)
         }
         builder.baseUrl(baseUrl())
-//                .addCallAdapterFactory(LiveDataCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create(GsonUtils.getGson()))
                 .client(okHttpClient())
         return builder.build()

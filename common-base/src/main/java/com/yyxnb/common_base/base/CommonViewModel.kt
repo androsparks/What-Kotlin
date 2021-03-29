@@ -1,9 +1,7 @@
 package com.yyxnb.common_base.base
 
 import android.accounts.NetworkErrorException
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import cn.hutool.core.util.ObjectUtil
 import com.yyxnb.common_base.event.MessageEvent
 import com.yyxnb.common_base.event.StatusEvent
 import com.yyxnb.common_base.event.TypeEvent
@@ -47,7 +45,6 @@ open class CommonViewModel : BaseViewModel() {
             success: (T) -> Unit = {},
             //错误 根据错误进行不同分类
             error: (Throwable) -> Unit = {
-                //UnknownHostException 1：服务器地址错误；2：网络未连接
 //                reTry()
             },
             //完成
@@ -88,12 +85,12 @@ open class CommonViewModel : BaseViewModel() {
             success: suspend CoroutineScope.(T) -> Unit
     ) {
         coroutineScope {
-            //接口成功返回后判断是否是增删改查成功，不满足的话，返回异常
+            //接口成功返回后判断是否成功，不满足的话，返回异常
             if (response.isSuccess) {
                 statusEvent.postValue(StatusEvent.HttpStatus.SUCCESS)
                 success(response.result)
             } else {
-                statusEvent.postValue(StatusEvent.HttpStatus.ERROR)
+                statusEvent.postValue(StatusEvent.HttpStatus.FAILURE)
                 throw NetworkErrorException(response.msg)
             }
         }
