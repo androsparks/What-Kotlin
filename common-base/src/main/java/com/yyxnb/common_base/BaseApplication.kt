@@ -1,26 +1,22 @@
-package com.yyxnb.common_base;
+package com.yyxnb.common_base
 
-import android.app.Application;
-import android.content.Context;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.DefaultLifecycleObserver;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.ProcessLifecycleOwner;
-import androidx.multidex.MultiDex;
-
-import com.github.anzewei.parallaxbacklayout.ParallaxHelper;
-import com.yyxnb.common_base.base.ContainerActivity;
-import com.yyxnb.common_base.module.ModuleLifecycleConfig;
-import com.yyxnb.what.app.AppUtils;
-import com.yyxnb.what.arch.annotations.SwipeStyle;
-import com.yyxnb.what.arch.config.AppManager;
-import com.yyxnb.what.arch.config.ArchConfig;
-import com.yyxnb.what.arch.config.ArchManager;
-import com.yyxnb.what.core.UITask;
-import com.yyxnb.what.image.ImageManager;
-
-import me.jessyan.autosize.AutoSizeConfig;
+import android.app.Application
+import android.content.Context
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.multidex.MultiDex
+import com.github.anzewei.parallaxbacklayout.ParallaxHelper
+import com.yyxnb.common_base.base.ContainerActivity
+import com.yyxnb.common_base.module.ModuleLifecycleConfig
+import com.yyxnb.what.app.AppUtils
+import com.yyxnb.what.arch.annotations.SwipeStyle
+import com.yyxnb.what.arch.config.AppManager
+import com.yyxnb.what.arch.config.ArchConfig
+import com.yyxnb.what.arch.config.ArchManager
+import com.yyxnb.what.core.UITask
+import com.yyxnb.what.image.ImageManager
+import me.jessyan.autosize.AutoSizeConfig
 
 /**
  * ================================================
@@ -29,70 +25,59 @@ import me.jessyan.autosize.AutoSizeConfig;
  * 描    述：BaseApplication
  * ================================================
  */
-public class BaseApplication extends Application {
+open class BaseApplication : Application() {
 
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        ModuleLifecycleConfig.getInstance().initModule(base);
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        ModuleLifecycleConfig.initModule(base)
         // you must install multiDex whatever tinker is installed!
-        MultiDex.install(base);
+        MultiDex.install(base)
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        UITask.run(() -> {
+    override fun onCreate() {
+        super.onCreate()
+        UITask.run {
             // 布局
-            AutoSizeConfig.getInstance()
-                    //按照宽度适配 默认true
-                    .setBaseOnWidth(true)
-                    //是否让框架支持自定义 Fragment 的适配参数, 由于这个需求是比较少见的, 所以须要使用者手动开启
-                    //如果没有这个需求建议不开启
-                    .setCustomFragment(true);
+            AutoSizeConfig.getInstance() //按照宽度适配 默认true
+                    .setBaseOnWidth(true).isCustomFragment = true
             // 侧滑监听
-            AppUtils.getApp().registerActivityLifecycleCallbacks(ParallaxHelper.getInstance());
-        });
-        UITask.run(() -> {
+            AppUtils.getApp().registerActivityLifecycleCallbacks(ParallaxHelper.getInstance())
+        }
+        UITask.run {
             // 图片框架 集成glide
-            ImageManager.getInstance().init(this.getApplicationContext());
+            ImageManager.getInstance().init(this.applicationContext)
 
             // 框架配置
-            ArchConfig archConfig = new ArchConfig.Builder()
+            val archConfig = ArchConfig.Builder()
                     .setSwipeBack(SwipeStyle.EDGE)
-                    .setContainerActivityClassName(ContainerActivity.class.getCanonicalName())
-                    .build();
-            ArchManager.getInstance().setConfig(archConfig);
-        });
+                    .setContainerActivityClassName(ContainerActivity::class.java.canonicalName)
+                    .build()
+            ArchManager.getInstance().config = archConfig
+        }
 
-        ModuleLifecycleConfig.getInstance().onCreate();
+        ModuleLifecycleConfig.onCreate()
 
-        ProcessLifecycleOwner.get().getLifecycle().addObserver(new DefaultLifecycleObserver() {
-            @Override
-            public void onStop(@NonNull LifecycleOwner owner) {
+        ProcessLifecycleOwner.get().lifecycle.addObserver(object : DefaultLifecycleObserver {
+            override fun onStop(owner: LifecycleOwner) {
                 if (AppManager.getInstance().activityCount() == 0) {
-                    ModuleLifecycleConfig.getInstance().onDestroy();
+                    ModuleLifecycleConfig.onDestroy()
                 }
             }
-        });
-
+        })
     }
 
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
-        ModuleLifecycleConfig.getInstance().onTerminate();
+    override fun onTerminate() {
+        super.onTerminate()
+        ModuleLifecycleConfig.onTerminate()
     }
 
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        ModuleLifecycleConfig.getInstance().onLowMemory();
+    override fun onLowMemory() {
+        super.onLowMemory()
+        ModuleLifecycleConfig.onLowMemory()
     }
 
-    @Override
-    public void onTrimMemory(int level) {
-        super.onTrimMemory(level);
-        ModuleLifecycleConfig.getInstance().onTrimMemory(level);
+    override fun onTrimMemory(level: Int) {
+        super.onTrimMemory(level)
+        ModuleLifecycleConfig.onTrimMemory(level)
     }
 }

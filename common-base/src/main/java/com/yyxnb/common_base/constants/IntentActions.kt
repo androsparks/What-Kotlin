@@ -1,7 +1,5 @@
-package com.yyxnb.common_base.constants;
+package com.yyxnb.common_base.constants
 
-public interface IntentActions {
-
-    String CONTAINER_ACTION = "com.yyxnb.common_base.core.ContainerActivity";
-
+object IntentActions {
+    const val CONTAINER_ACTION = "com.yyxnb.common_base.core.ContainerActivity"
 }

@@ -1,38 +1,18 @@
-package com.yyxnb.common_base.module;
+package com.yyxnb.common_base.module
 
-import android.content.Context;
+import android.content.Context
 
-import androidx.annotation.NonNull;
+open class ModuleInitImpl : IModuleInit {
 
-public class ModuleInitImpl implements IModuleInit {
+    override fun attachBaseContext(base: Context) {}
 
-    @Override
-    public void attachBaseContext(@NonNull Context base) {
+    override fun onCreate() {}
 
-    }
+    override fun onTerminate() {}
 
-    @Override
-    public void onCreate() {
+    override fun onLowMemory() {}
 
-    }
+    override fun onTrimMemory(level: Int) {}
 
-    @Override
-    public void onTerminate() {
-
-    }
-
-    @Override
-    public void onLowMemory() {
-
-    }
-
-    @Override
-    public void onTrimMemory(int level) {
-
-    }
-
-    @Override
-    public void onDestroy() {
-
-    }
+    override fun onDestroy() {}
 }

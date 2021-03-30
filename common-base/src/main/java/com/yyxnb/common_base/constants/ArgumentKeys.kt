@@ -1,8 +1,6 @@
-package com.yyxnb.common_base.constants;
+package com.yyxnb.common_base.constants
 
-public interface ArgumentKeys {
-
-    String FRAGMENT = "FRAGMENT";
-    String BUNDLE = "BUNDLE";
-
+object ArgumentKeys {
+    const val FRAGMENT = "FRAGMENT"
+    const val BUNDLE = "BUNDLE"
 }

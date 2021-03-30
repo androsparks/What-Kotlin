@@ -1,12 +1,7 @@
-package com.yyxnb.module_login;
+package com.yyxnb.module_login
 
-import com.yyxnb.common_base.module.ModuleInitImpl;
+import com.yyxnb.common_base.module.ModuleInitImpl
 
-public class ModuleInit extends ModuleInitImpl {
-
-    @Override
-    public void onCreate() {
-
-    }
-
+class ModuleInit : ModuleInitImpl() {
+    override fun onCreate() {}
 }

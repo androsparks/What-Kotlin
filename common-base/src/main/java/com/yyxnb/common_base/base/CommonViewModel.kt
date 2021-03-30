@@ -117,8 +117,4 @@ open class CommonViewModel : BaseViewModel() {
         }
     }
 
-    interface HttpResponseCallback<T> {
-        fun onSuccess(data: T)
-        fun onError(msg: String?)
-    }
 }
