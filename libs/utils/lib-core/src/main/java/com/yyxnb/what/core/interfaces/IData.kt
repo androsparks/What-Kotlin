@@ -1,15 +1,15 @@
-package com.yyxnb.what.core.interfaces;
+package com.yyxnb.what.core.interfaces
 
 /**
  * 接口返回结构封装类
  *
  * @param <T>
  * @author yyx
- */
-public interface IData<T> {
+</T> */
+interface IData<T> {
 
-    default int id() {
-        return hashCode();
+    fun id(): Int {
+        return hashCode()
     }
 
     /**
@@ -17,26 +17,26 @@ public interface IData<T> {
      *
      * @return 判断数据是否请求成功
      */
-    String getCode();
+    fun getCode(): String
 
     /**
      * 提示语
      *
      * @return 提示用户
      */
-    String getMsg();
+    fun getMsg(): String?
 
     /**
      * 数据
      *
      * @return 可为空
      */
-    T getResult();
+    fun getResult(): T?
 
     /**
      * 判断数据的请求是否成功
      *
      * @return true or false
      */
-    boolean isSuccess();
+    fun isSuccess(): Boolean
 }

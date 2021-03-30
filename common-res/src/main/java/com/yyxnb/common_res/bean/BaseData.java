@@ -33,4 +33,8 @@ public class BaseData<T> implements IData<T> {
         return "200".equals(code);
     }
 
+    @Override
+    public int id() {
+        return hashCode();
+    }
 }

@@ -1,42 +1,32 @@
-package com.yyxnb.common_res.bean;
+package com.yyxnb.common_res.bean
 
-
-import com.yyxnb.what.core.interfaces.IData;
+import com.yyxnb.what.core.interfaces.IData
 
 /**
  * 玩安卓api数据结构
  * https://www.wanandroid.com/
  *
  * @param <T>
- */
-public class WanData<T> implements IData<T> {
-
+</T> */
+data class WanData<T>(
+        var errorCode: Int = 0,
+        var errorMsg: String? = null,
+        var data: T? = null,
+) : IData<T> {
     /*
     errorCode = 0 代表执行成功，不建议依赖任何非0的 errorCode.
     errorCode = -1001 代表登录失效，需要重新登录。
      */
 
-    public int errorCode;
-    public String errorMsg;
-    public T data;
-
-    @Override
-    public String getCode() {
-        return String.valueOf(errorCode);
+    override fun id(): Int {
+        return hashCode()
     }
 
-    @Override
-    public String getMsg() {
-        return errorMsg;
-    }
+    override fun getCode(): String = errorCode.toString()
 
-    @Override
-    public T getResult() {
-        return data;
-    }
+    override fun getMsg(): String? = errorMsg
 
-    @Override
-    public boolean isSuccess() {
-        return errorCode == 0;
-    }
+    override fun getResult(): T? = data
+
+    override fun isSuccess(): Boolean = errorCode == 0
 }

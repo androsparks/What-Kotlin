@@ -86,12 +86,14 @@ open class CommonViewModel : BaseViewModel() {
     ) {
         coroutineScope {
             //接口成功返回后判断是否成功，不满足的话，返回异常
-            if (response.isSuccess) {
+            if (response.isSuccess()) {
                 statusEvent.postValue(StatusEvent.HttpStatus.SUCCESS)
-                success(response.result)
+                response.getResult()?.apply {
+                    success(this)
+                }
             } else {
                 statusEvent.postValue(StatusEvent.HttpStatus.FAILURE)
-                throw NetworkErrorException(response.msg)
+                throw NetworkErrorException(response.getMsg())
             }
         }
     }
