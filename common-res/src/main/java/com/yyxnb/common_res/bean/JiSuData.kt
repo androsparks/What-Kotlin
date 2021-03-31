@@ -1,7 +1,7 @@
-package com.yyxnb.common_res.bean;
+package com.yyxnb.common_res.bean
 
-
-import com.yyxnb.what.core.interfaces.IData;
+import com.google.gson.annotations.SerializedName
+import com.yyxnb.what.core.interfaces.IData
 
 /**
  * 极速api的数据结构
@@ -9,9 +9,14 @@ import com.yyxnb.what.core.interfaces.IData;
  *
  * @param <T>
  * @author yyx
- */
-public class JiSuData<T> implements IData<T> {
-
+</T> */
+class JiSuData<T>(
+        var status: Int = 0,
+        @SerializedName("msg")
+        var _msg: String? = null,
+        @SerializedName("result")
+        var _result: T? = null
+) : IData<T> {
     /*
      0 代表执行成功
     101	APPKEY为空或不存在
@@ -24,32 +29,23 @@ public class JiSuData<T> implements IData<T> {
     108	接口已停用
      */
 
-    public int status;
-    public String msg;
-    public T result;
-
-    @Override
-    public String getCode() {
-        return String.valueOf(status);
+    override fun getCode(): String {
+        return status.toString()
     }
 
-    @Override
-    public String getMsg() {
-        return msg;
+    override fun getMsg(): String? {
+        return _msg
     }
 
-    @Override
-    public T getResult() {
-        return result;
+    override fun getResult(): T? {
+        return _result
     }
 
-    @Override
-    public boolean isSuccess() {
-        return status == 0;
+    override fun isSuccess(): Boolean {
+        return status == 0
     }
 
-    @Override
-    public int id() {
-        return hashCode();
+    override fun id(): Int {
+        return hashCode()
     }
 }

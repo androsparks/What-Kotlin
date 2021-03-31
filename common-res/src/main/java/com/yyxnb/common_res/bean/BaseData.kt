@@ -10,18 +10,18 @@ import com.yyxnb.what.core.interfaces.IData
 </T> */
 data class BaseData<T>(
         @SerializedName("code")
-        var code1: String? = "",
+        var _code: String? = "",
         @SerializedName("msg")
-        var msg1: String? = "",
+        var _msg: String? = "",
         var data: T? = null
 ) : IData<T> {
 
     override fun getCode(): String {
-        return code1.toString()
+        return _code.toString()
     }
 
     override fun getMsg(): String? {
-        return msg1
+        return _msg
     }
 
     override fun getResult(): T? {
@@ -29,7 +29,7 @@ data class BaseData<T>(
     }
 
     override fun isSuccess(): Boolean {
-        return "200" == code1
+        return "200" == _code
     }
 
     override fun id(): Int {
