@@ -5,6 +5,7 @@
 
 开发环境：Android Studio 4.1.1 、gradle 6.6 、kotlin 1.4.30 、JDK 1.8 、SdkVersion AndroidX 30
 
+- 最新Java + AndroidX版本的看 [java-androidx](https://github.com/y1xian/What) ；
+
 - 最新Java + support版本的看 [java-support](https://github.com/y1xian/What/tree/java-support) ；
 
-- 最新Java + AndroidX版本的看 [java-androidx](https://github.com/y1xian/What/tree/java-androidx) ；

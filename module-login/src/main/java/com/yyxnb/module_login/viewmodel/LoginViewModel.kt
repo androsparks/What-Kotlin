@@ -40,9 +40,7 @@ class LoginViewModel : CommonViewModel() {
                 messageEvent.value = "验证码填写错误！"
                 return
             }
-            val dto = LoginDto()
-            dto.phone = phone
-            dto.code = code
+            val dto = LoginDto(phone, code)
 
             launchOnlyResult(
                     block = { mApi.phoneLogin(dto) },

@@ -1,21 +1,11 @@
-package com.yyxnb.module_login.bean;
+package com.yyxnb.module_login.bean
 
-public class LoginVo {
-
-    private String token;
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    @Override
-    public String toString() {
+data class LoginVo(
+        var token: String? = null
+) {
+    override fun toString(): String {
         return "LoginVo{" +
                 "token='" + token + '\'' +
-                '}';
+                '}'
     }
 }

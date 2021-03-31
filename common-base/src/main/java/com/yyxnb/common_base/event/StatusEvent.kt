@@ -1,6 +1,7 @@
-package com.yyxnb.common_base.event;
+package com.yyxnb.common_base.event
 
-import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LifecycleOwner
+import com.yyxnb.common_base.event.StatusEvent.HttpStatus
 
 /**
  * ================================================
@@ -9,28 +10,22 @@ import androidx.lifecycle.LifecycleOwner;
  * 描    述：提供观察状态事件
  * ================================================
  */
-public class StatusEvent extends SingleLiveEvent<StatusEvent.HttpStatus> {
+class StatusEvent : SingleLiveEvent<HttpStatus>() {
 
-    public void observe(LifecycleOwner owner, final StatusEvent.StatusObserver observer) {
-        super.observe(owner, t -> {
-            if (t != null) {
-                observer.onStatusChanged(t);
-            }
-        });
+    fun observe(owner: LifecycleOwner, observer: StatusObserver) {
+        super.observe(owner, { t: HttpStatus? ->
+            t?.apply { observer.onStatusChanged(this) }
+        })
     }
 
-    public interface StatusObserver {
-        void onStatusChanged(HttpStatus status);
+    interface StatusObserver {
+        fun onStatusChanged(status: HttpStatus)
     }
 
     /**
      * 状态
      */
-    public enum HttpStatus {
-        LOADING,
-        SUCCESS,
-        FAILURE,
-        ERROR,
-        COMPLETE
+    enum class HttpStatus {
+        LOADING, SUCCESS, FAILURE, ERROR, COMPLETE
     }
 }

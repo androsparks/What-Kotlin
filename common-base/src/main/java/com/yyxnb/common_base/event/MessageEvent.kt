@@ -1,8 +1,6 @@
-package com.yyxnb.common_base.event;
+package com.yyxnb.common_base.event
 
-import androidx.lifecycle.LifecycleOwner;
-
-import cn.hutool.core.util.ObjectUtil;
+import androidx.lifecycle.LifecycleOwner
 
 /**
  * ================================================
@@ -11,17 +9,15 @@ import cn.hutool.core.util.ObjectUtil;
  * 描    述：提供观察消息事件
  * ================================================
  */
-public class MessageEvent extends SingleLiveEvent<String> {
+class MessageEvent : SingleLiveEvent<String>() {
 
-    public void observe(LifecycleOwner owner, final MessageObserver observer) {
-        super.observe(owner, t -> {
-            if (ObjectUtil.isNotNull(t)) {
-                observer.onMessage(t);
-            }
-        });
+    fun observe(owner: LifecycleOwner, observer: MessageObserver) {
+        super.observe(owner, { t: String? ->
+            t?.apply { observer.onMessage(this) }
+        })
     }
 
-    public interface MessageObserver {
-        void onMessage(String message);
+    interface MessageObserver {
+        fun onMessage(message: String)
     }
 }

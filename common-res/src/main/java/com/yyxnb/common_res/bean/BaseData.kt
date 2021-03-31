@@ -1,40 +1,38 @@
-package com.yyxnb.common_res.bean;
+package com.yyxnb.common_res.bean
 
-import com.yyxnb.what.core.interfaces.IData;
+import com.google.gson.annotations.SerializedName
+import com.yyxnb.what.core.interfaces.IData
 
 /**
  * 常用的数据结构
  *
  * @param <T>
- */
-public class BaseData<T> implements IData<T> {
+</T> */
+data class BaseData<T>(
+        @SerializedName("code")
+        var code1: String? = "",
+        @SerializedName("msg")
+        var msg1: String? = "",
+        var data: T? = null
+) : IData<T> {
 
-    public String code;
-    public String msg;
-    public T data;
-
-    @Override
-    public String getCode() {
-        return code;
+    override fun getCode(): String {
+        return code1.toString()
     }
 
-    @Override
-    public String getMsg() {
-        return msg;
+    override fun getMsg(): String? {
+        return msg1
     }
 
-    @Override
-    public T getResult() {
-        return data;
+    override fun getResult(): T? {
+        return data
     }
 
-    @Override
-    public boolean isSuccess() {
-        return "200".equals(code);
+    override fun isSuccess(): Boolean {
+        return "200" == code1
     }
 
-    @Override
-    public int id() {
-        return hashCode();
+    override fun id(): Int {
+        return hashCode()
     }
 }

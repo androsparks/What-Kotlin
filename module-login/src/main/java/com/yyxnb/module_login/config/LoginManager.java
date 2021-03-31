@@ -36,7 +36,7 @@ public class LoginManager {
 //                    userVo = new UserVo();
 //                }
 //            } else {
-                userVo = new UserVo();
+            userVo = new UserVo();
 //            }
         }
         return userVo;
